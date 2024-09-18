@@ -79,6 +79,11 @@ public class MatrixGame {
         return  statsCharacter;
     }
 
+    public static int[] statsEnemy() {
+        int[] statsCharacter = {1, 1, 45, 10};
+        return statsCharacter;
+    }
+
     public static void showStatsCharacter (int[] statsMainCharacter) {
         int life = statsMainCharacter[2];
         int damage = statsMainCharacter[3];
