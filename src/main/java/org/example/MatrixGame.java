@@ -72,8 +72,8 @@ public class MatrixGame {
 
     public static int[] mainCharacter (String[][] matrix) {
         matrix[1][1] = "P";
-        int[] dataCharacter = {1, 1, 100, 15};
-        return dataCharacter;
+        int[] statsCharacter = {1, 1, 100, 15};
+        return  statsCharacter;
     }
 
     public static void moveMainCharacter(String[][] matrix, Scanner scanner) {
@@ -129,7 +129,7 @@ public class MatrixGame {
     public static boolean isMoveValid(String[][] matrix, int[] newPosition) {
         int newX = newPosition[0];
         int newY = newPosition[1];
-        return !matrix[newX][newY].equals("#");
+        return !matrix[newX][newY].equals("#") && !matrix[newX][newY].equals("C") && !matrix[newX][newY].equals("E");
     }
 
     public static String getMoveDirection(Scanner scanner) {
