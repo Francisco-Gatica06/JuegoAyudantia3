@@ -172,5 +172,6 @@ public class MatrixGame {
         System.out.println("d: Mover derecha");
         System.out.println("q: Salir del juego");
     }
+
 }
 
