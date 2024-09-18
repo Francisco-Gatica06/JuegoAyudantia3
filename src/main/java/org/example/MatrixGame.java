@@ -107,7 +107,7 @@ public class MatrixGame {
             }
 
             int[] newPosition = updatePosition(x,y,moveDirection);
-
+            System.out.println("Evento detectado: "+ eventDetect(matrix, getPosition(matrix)));
             if (isMoveValid(matrix, newPosition)) {
                 matrix[x][y] = ".";
                 x = newPosition[0];
@@ -130,13 +130,28 @@ public class MatrixGame {
         return null;
     }
 
-    public static void generateEnemy(String[][] matrix) {
+    public static void generateEnemy (String[][] matrix) {
         Random random = new Random();
         int max = 8;
         int min = 1;
         int random1 = random.nextInt((max - min) + 1) + min;
         int random2 = random.nextInt((max - min) + 1) + min;
         matrix[random1][random2] = "E";
+    }
+
+    public static boolean eventDetect (String[][] matrix, int[] getPosition) {
+        int x = getPosition[0];
+        int y = getPosition[1];
+        boolean detected = true;
+
+        for (int fila = x - 1; fila <= x + 1; fila++) {
+            if (matrix[fila][y - 1].equals("E") || matrix[fila][y - 1].equals("C") ||
+                    matrix[fila][y].equals("E") || matrix[fila][y].equals("C") ||
+                    matrix[fila][y + 1].equals("E") || matrix[fila][y + 1].equals("C")) {
+                return detected;
+            }
+        }
+        return !detected;
     }
 
     public static boolean isMoveValid(String[][] matrix, int[] newPosition) {
