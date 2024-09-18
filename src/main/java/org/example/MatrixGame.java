@@ -16,8 +16,8 @@ public class MatrixGame {
         createPlayZoneMap(matrix);
         generateObstacle(matrix);
         generateChest(matrix);
-        mainCharacter(matrix);
-        enemy(matrix);
+        generateEnemy(matrix);
+        generateMainCharacter(matrix);
     }
 
     public static void showMap (String[][] matrix) {
@@ -70,10 +70,19 @@ public class MatrixGame {
         matrix[random1][random2] = "C";
     }
 
-    public static int[] mainCharacter (String[][] matrix) {
+    public static void generateMainCharacter (String[][] matrix) {
         matrix[1][1] = "P";
+    }
+
+    public static int[] statsMainCharacter(String[][] matrix) {
         int[] statsCharacter = {1, 1, 100, 15};
         return  statsCharacter;
+    }
+
+    public static void showStatsCharacter (int[] statsMainCharacter) {
+        int life = statsMainCharacter[2];
+        int damage = statsMainCharacter[3];
+        System.out.println("Stats main character: Life: " + life + " Damage: " + damage);
     }
 
     public static void moveMainCharacter(String[][] matrix, Scanner scanner) {
@@ -88,6 +97,9 @@ public class MatrixGame {
             if (moveDirection.equals("q")) {
                 System.out.println("Saliendo del juego...");
                 return;
+            } else if (moveDirection.equals("stats")) {
+                showStatsCharacter(statsMainCharacter(matrix));
+                continue;
             } else if (moveDirection.equals("h")) {
                 printHelp();
                 continue;
@@ -117,7 +129,7 @@ public class MatrixGame {
         return null;
     }
 
-    public static void enemy(String[][] matrix) {
+    public static void generateEnemy(String[][] matrix) {
         Random random = new Random();
         int max = 8;
         int min = 1;
