@@ -17,6 +17,7 @@ public class MatrixGame {
         generateObstacle(matrix);
         generateChest(matrix);
         mainCharacter(matrix);
+        enemy(matrix);
     }
 
     public static void showMap (String[][] matrix) {
@@ -69,9 +70,10 @@ public class MatrixGame {
         matrix[random1][random2] = "C";
     }
 
-    public static void mainCharacter (String[][] matrix) {
+    public static int[] mainCharacter (String[][] matrix) {
         matrix[1][1] = "P";
         int[] dataCharacter = {1, 1, 100, 15};
+        return dataCharacter;
     }
 
     public static void moveMainCharacter(String[][] matrix, Scanner scanner) {
@@ -81,46 +83,25 @@ public class MatrixGame {
 
         while (true) {
             showMap(matrix);
-            System.out.print("Movimientos: (w/a/s/d), h (help) para ayuda, q para salir): ");
-            if (scanner.hasNext()) {
-                String moveDirection = scanner.next().toLowerCase();
+            String moveDirection = getMoveDirection(scanner);
 
-                int newX = x;
-                int newY = y;
+            if (moveDirection.equals("q")) {
+                System.out.println("Saliendo del juego...");
+                return;
+            } else if (moveDirection.equals("h")) {
+                printHelp();
+                continue;
+            }
 
-                switch (moveDirection) {
-                    case "w":
-                        newX = x - 1;
-                        break;
-                    case "s":
-                        newX = x + 1;
-                        break;
-                    case "a":
-                        newY = y - 1;
-                        break;
-                    case "d":
-                        newY = y + 1;
-                        break;
-                    case "h":
-                        System.out.println("Movimientos: w (arriba), a (izquierda), s (abajo), d (derecha)");
-                        continue;
-                    case "q":
-                        System.out.println("Saliendo del juego...");
-                        return;
-                    default:
-                        System.out.println("Comando no válido, intenta de nuevo.");
-                        continue;
-                }
+            int[] newPosition = updatePosition(x,y,moveDirection);
 
-                if (newX >= 1 && newX < matrix.length - 1 && newY >= 1 && newY < matrix[0].length - 1) {
-                    matrix[x][y] = ".";
-                    matrix[newX][newY] = "P";
-
-                    x = newX;
-                    y = newY;
-                } else {
-                    System.out.println("Movimiento fuera de los límites, intenta de nuevo.");
-                }
+            if (isMoveValid(matrix, newPosition)) {
+                matrix[x][y] = ".";
+                x = newPosition[0];
+                y = newPosition[1];
+                matrix[x][y] = "P";
+            } else {
+                System.out.println("Movimiento fuera de los límites o hacia un obstáculo.");
             }
         }
     }
@@ -136,14 +117,61 @@ public class MatrixGame {
         return null;
     }
 
-//    public static void showPosition (String[][] matrix) {
-//        int[] position = getPosition(matrix);
-//        System.out.println(position[0] + "," + position[1]);
-//    }
+    public static void enemy(String[][] matrix) {
+        Random random = new Random();
+        int max = 8;
+        int min = 1;
+        int random1 = random.nextInt((max - min) + 1) + min;
+        int random2 = random.nextInt((max - min) + 1) + min;
+        matrix[random1][random2] = "E";
+    }
+
+    public static boolean isMoveValid(String[][] matrix, int[] newPosition) {
+        int newX = newPosition[0];
+        int newY = newPosition[1];
+        return !matrix[newX][newY].equals("#");
+    }
+
+    public static String getMoveDirection(Scanner scanner) {
+        System.out.print("Movimientos: (w/a/s/d), h (help) para ayuda, q para salir): ");
+        if (scanner.hasNext()) {
+            return scanner.next().toLowerCase();
+        }
+        return "";
+    }
+
+    public static int[] updatePosition (int x, int y, String direction) {
+        int newX = x;
+        int newY = y;
+
+        switch (direction) {
+            case "w":
+                newX = x - 1;
+                break;
+            case "s":
+                newX = x + 1;
+                break;
+            case "a":
+                newY = y - 1;
+                break;
+            case "d":
+                newY = y + 1;
+                break;
+            default:
+                System.out.println("Not valid interacction. ");
+                break;
+        }
+        return new int[]{newX, newY};
+    }
 
 
-//    public static int estadisticsCharacter() {
-//    }
-
+    public static void printHelp () {
+        System.out.println("Movimientos:");
+        System.out.println("w: Mover arriba");
+        System.out.println("a: Mover izquierda");
+        System.out.println("s: Mover abajo");
+        System.out.println("d: Mover derecha");
+        System.out.println("q: Salir del juego");
+    }
 }
 
