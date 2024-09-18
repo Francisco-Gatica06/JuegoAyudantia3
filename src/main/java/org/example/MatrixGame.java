@@ -164,7 +164,6 @@ public class MatrixGame {
         return new int[]{newX, newY};
     }
 
-
     public static void printHelp () {
         System.out.println("Movimientos:");
         System.out.println("w: Mover arriba");
