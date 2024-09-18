@@ -74,7 +74,7 @@ public class MatrixGame {
         matrix[1][1] = "P";
     }
 
-    public static int[] statsMainCharacter(String[][] matrix) {
+    public static int[] statsMainCharacter() {
         int[] statsCharacter = {1, 1, 100, 15};
         return  statsCharacter;
     }
@@ -94,15 +94,16 @@ public class MatrixGame {
             showMap(matrix);
             String moveDirection = getMoveDirection(scanner);
 
-            if (moveDirection.equals("q")) {
-                System.out.println("Saliendo del juego...");
-                return;
-            } else if (moveDirection.equals("stats")) {
-                showStatsCharacter(statsMainCharacter(matrix));
-                continue;
-            } else if (moveDirection.equals("h")) {
-                printHelp();
-                continue;
+            switch (moveDirection) {
+                case "q":
+                    System.out.println("Saliendo del juego...");
+                    return;
+                case "stats":
+                    showStatsCharacter(statsMainCharacter());
+                    continue;
+                case "h":
+                    printHelp();
+                    continue;
             }
 
             int[] newPosition = updatePosition(x,y,moveDirection);
