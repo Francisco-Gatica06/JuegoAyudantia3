@@ -17,9 +17,9 @@ Existen cofres dispersos en el mapa que el jugador puede recolectar, y estos oto
 El objetivo del jugador es llegar a un destino específico dentro del mapa. Una vez alcanzado, el jugador gana la partida.
 
 ## Tecnologías Utilizadas
-Lenguaje de programación: Java
-Estructura de datos principal: Matriz bidimensional
-## Instrucciones
+### Lenguaje de programación: Java
+### Estructura de datos principal: Matriz bidimensional
+## Instrucciones:
 Ejecuta el archivo principal del juego.
 Utiliza las teclas de movimiento para desplazar al personaje por el mapa.
 Enfrenta enemigos y recolecta cofres para mejorar tu desempeño en la aventura.
